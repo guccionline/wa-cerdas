@@ -1,0 +1,25 @@
+{
+	# FrankenPHP global options
+	frankenphp
+	admin off
+}
+
+:{$PORT:80} {
+	# Serve index.php at the root
+	route / {
+		rewrite * /index.php
+		php_server
+	}
+
+	# Route /api/* to the api directory
+	route /api/* {
+		root * /app
+		php_server
+	}
+
+	# Catch-all: serve static files, fall back to 404
+	route {
+		root * /app
+		file_server
+	}
+}
